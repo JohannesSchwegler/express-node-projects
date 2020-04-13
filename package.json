@@ -1,7 +1,10 @@
 {
-  "name": "fcc-library",
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "my-hyperdev-app",
   "version": "0.0.1",
-  "description": "boilerplate",
+  "description": "What am I about?",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -15,8 +18,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^7.0.0",
     "zombie": "^6.1.4",
-    "helmet": "^3.21.2",
-    "mongoose": "5.8.11"
+    "helmet": "^3.21.2"
   },
   "engines": {
     "node": "4.4.3"
