@@ -1,60 +1,98 @@
 /*
-*
-*
-*       FILL IN EACH FUNCTIONAL TEST BELOW COMPLETELY
-*       -----[Keep the tests in the same order!]-----
-*       (if additional are added, keep them at the very end!)
-*/
+ *
+ *
+ *       FILL IN EACH FUNCTIONAL TEST BELOW COMPLETELY
+ *       -----[Keep the tests in the same order!]-----
+ *
+ */
 
-var chaiHttp = require('chai-http');
-var chai = require('chai');
+var chaiHttp = require("chai-http");
+var chai = require("chai");
 var assert = chai.assert;
-var server = require('../server');
+var server = require("../server");
 
 chai.use(chaiHttp);
 
-suite('Functional Tests', function() {
+suite("Functional Tests", function() {
+  /*
+   * ----[EXAMPLE TEST]----
+   * Each test should completely test the response of the API end-point including response status code!
+   */
+  test("#example Test GET /api/books", function(done) {
+    chai
+      .request(server)
+      .get("/api/books")
+      .end(function(err, res) {
+        assert.equal(res.status, 200);
+        assert.isArray(res.body, "response should be an array");
+        assert.property(
+          res.body[0],
+          "commentcount",
+          "Books in array should contain commentcount"
+        );
+        assert.property(
+          res.body[0],
+          "title",
+          "Books in array should contain title"
+        );
+        assert.property(
+          res.body[0],
+          "_id",
+          "Books in array should contain _id"
+        );
+        done();
+      });
+  });
+  /*
+   * ----[END of EXAMPLE TEST]----
+   */
 
-  suite('Routing Tests', function() {
-    
-    suite('GET /api/convert => conversion object', function() {
-      
-      test('Convert 10L (valid input)', function(done) {
-       chai.request(server)
-        .get('/api/convert')
-        .query({input: '10L'})
-        .end(function(err, res){
-          assert.equal(res.status, 200);
-          assert.equal(res.body.initNum, 10);
-          assert.equal(res.body.initUnit, 'L');
-          assert.approximately(res.body.returnNum, 2.64172, 0.1);
-          assert.equal(res.body.returnUnit, 'gal');
-          done();
+  suite("Routing tests", function() {
+    suite(
+      "POST /api/books with title => create book object/expect book object",
+      function() {
+        test("Test POST /api/books with title", function(done) {
+          chai
+            .request(server)
+            .post("/api/books")
+            .end(function(err, res) {
+              assert.equal(res.status, 200);
+              assert.isObject(res.body, "response should be an object");
+              console.log(res);
+
+              done();
+            });
         });
-      });
-      
-      test('Convert 32g (invalid input unit)', function(done) {
-        
+
+        test("Test POST /api/books with no title given", function(done) {
+          //done();
+        });
+      }
+    );
+
+    suite("GET /api/books => array of books", function() {
+      test("Test GET /api/books", function(done) {
         //done();
       });
-      
-      test('Convert 3/7.2/4kg (invalid number)', function(done) {
-        
-        //done();
-      });  
-      
-      test('Convert 3/7.2/4kilomegagram (invalid number and unit)', function(done) {
-        
-        //done();
-      });
-      
-      test('Convert kg (no number)', function(done) {
-        
-        //done();
-      });
-      
     });
 
-  });
+    suite("GET /api/books/[id] => book object with [id]", function() {
+      test("Test GET /api/books/[id] with id not in db", function(done) {
+        //done();
+      });
 
+      test("Test GET /api/books/[id] with valid id in db", function(done) {
+        //done();
+      });
+    });
+
+    suite(
+      "POST /api/books/[id] => add comment/expect book object with id",
+      function() {
+        test("Test POST /api/books/[id] with comment", function(done) {
+          //done();
+        });
+      }
+    );
+  });
 });
